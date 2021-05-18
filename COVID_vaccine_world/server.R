@@ -47,7 +47,7 @@ shinyServer(function(input, output) {
     })
     usedata<-reactive({filter(datalong, location %in% a(), doses %in% input$doses,
                               between(date,input$dates[1], input$dates[2])) %>%
-            mutate(type=doses, percentage=value, d=date, loc=location, People=population/100*value)})
+            mutate(type=doses, percentage=value, d=date, loc=location, People=round(population/100*value))})
     output$data<-renderDataTable(
         if(dim(usedata())[1]==0) {d<-mutate(data.frame(),location="", date="", People_All_doses="", "All %"="",
                                          People_fully_vaccinated="", "Fully %"="")
